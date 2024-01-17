@@ -30,7 +30,8 @@ def getFirstAndLastDay(year,month):
         
 def get_jira_key():
     config = configparser.ConfigParser()
-    config.read('config.ini','utf-8')
+    ini_file = os.path.dirname(os.path.abspath(__file__))
+    config.read(ini_file+'/config.ini','utf-8')
     #cipher_key = Fernet.generate_key()
     cipher_key = config['DEFAULT']['cipher_key']
     cipher = Fernet(cipher_key)
@@ -64,6 +65,9 @@ def getLogging():
     return logging
 
 def compress_folder(folder_path, zip_name):
+    pdir = os.path.dirname(zip_name)
+    if not os.path.exists(pdir):
+        os.makedirs(pdir)
     with zipfile.ZipFile(zip_name, 'w') as zip:
         for root, dirs, files in os.walk(folder_path):
             for file in files:
@@ -72,11 +76,12 @@ def compress_folder(folder_path, zip_name):
 
 
 def compress_files(file_paths, zip_name):
+    pdir = os.path.dirname(zip_name)
+    if not os.path.exists(pdir):
+        os.makedirs(pdir)    
     with zipfile.ZipFile(zip_name, 'w') as zip:
         for file_path in file_paths:
             zip.write(file_path, os.path.basename(file_path))
-
-
 
 
 

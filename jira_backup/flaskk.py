@@ -80,7 +80,7 @@ def cat_log():
     with open(file_name, "r") as f:
         lines = f.readlines()
         lines.reverse() 
-    return str(lines) + style
+    return '<style>' + str(lines) + '</style>' + style
 
 @app.route('/dlog', methods=['GET'])
 def download_log():

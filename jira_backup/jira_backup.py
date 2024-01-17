@@ -8,8 +8,6 @@ import mycypher
 import sys
 import pyexcel
 import os
-from django.http import HttpResponse
-from django.shortcuts import render
 
 
 #jira数据维护备份功能
@@ -17,7 +15,8 @@ from django.shortcuts import render
 
 #配置获取JIRA
 config = configparser.ConfigParser()
-config.read('config.ini','utf-8')
+ini_file = os.path.dirname(os.path.abspath(__file__))
+config.read(ini_file+'/config.ini','utf-8')
 EBAO_PROJECT = config['DEFAULT']['EBAO_PROJECT']
 AttachmentDir = config['DEFAULT']['AttachmentDir']
 JsonDir = config['DEFAULT']['JsonDir']
@@ -183,7 +182,9 @@ if __name__=='__main__':
     #按月下载备份附件
     #search_issues("2024-01")
     #search_issues()
-
+    #ini_file = os.path.dirname(os.path.abspath(__file__))
+    #print(ini_file)
+    
     start_program()
     #get_attachment("EBAO-9129")
     
